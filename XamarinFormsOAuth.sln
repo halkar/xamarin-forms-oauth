@@ -13,6 +13,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Forms.OAuth.Shared"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.OAuth.PlatformiOS", "Xamarin.Forms.OAuth.PlatformiOS\Xamarin.Forms.OAuth.PlatformiOS.csproj", "{F7585A30-0E8E-45C6-9F93-69D180832276}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{FB96773F-1135-4637-AA0E-F56087A0968D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.Xamarin.Forms.OAuth", "nuget\NuGet.Xamarin.Forms.OAuth\NuGet.Xamarin.Forms.OAuth.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Xamarin.Forms.OAuth.Shared\Xamarin.Forms.OAuth.Shared.projitems*{f7585a30-0e8e-45c6-9f93-69d180832276}*SharedItemsImports = 4
@@ -65,8 +69,19 @@ Global
 		{F7585A30-0E8E-45C6-9F93-69D180832276}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7585A30-0E8E-45C6-9F93-69D180832276}.Release|ARM.ActiveCfg = Release|Any CPU
 		{F7585A30-0E8E-45C6-9F93-69D180832276}.Release|x86.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389} = {FB96773F-1135-4637-AA0E-F56087A0968D}
 	EndGlobalSection
 EndGlobal
