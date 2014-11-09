@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\Xamarin.Forms.OAuth.Shared\Xamarin.Forms.OAuth.Shared.projitems" Label="Shared" Condition="Exists('..\Xamarin.Forms.OAuth.Shared\Xamarin.Forms.OAuth.Shared.projitems')" />
