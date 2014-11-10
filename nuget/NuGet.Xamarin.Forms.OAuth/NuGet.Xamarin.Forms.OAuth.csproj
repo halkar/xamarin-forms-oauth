@@ -53,13 +53,39 @@
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
     <None Include="NuGet.config" />
-    <None Include="Package.nuspec" />
+    <None Include="Package.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="content\" />
-    <Folder Include="lib\" />
-    <Folder Include="src\" />
-    <Folder Include="tools\" />
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformAndroid\bin\$(Configuration)\Xamarin.Forms.OAuth.dll">
+      <Link>lib\MonoAndroid10\Xamarin.Forms.OAuth.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformAndroid\bin\$(Configuration)\Xamarin.Forms.OAuth.PlatformAndroid.dll">
+      <Link>lib\MonoAndroid10\Xamarin.Forms.OAuth.PlatformAndroid.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformiOS\bin\iPhone\$(Configuration)\Xamarin.Forms.OAuth.dll">
+      <Link>lib\MonoTouch10\Xamarin.Forms.OAuth.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformiOS\bin\iPhone\$(Configuration)\XamarinFormsOAuthPlatformiOS.dll">
+      <Link>lib\MonoTouch10\XamarinFormsOAuthPlatformiOS.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformWP\Bin\$(Configuration)\Xamarin.Forms.OAuth.dll">
+      <Link>lib\WP80\Xamarin.Forms.OAuth.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth.PlatformWP\Bin\$(Configuration)\Xamarin.Forms.OAuth.PlatformWP.dll">
+      <Link>lib\WP80\Xamarin.Forms.OAuth.PlatformWP.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\Xamarin.Forms.OAuth\bin\$(Configuration)\Xamarin.Forms.OAuth.dll">
+      <Link>lib\portable-net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.OAuth.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
