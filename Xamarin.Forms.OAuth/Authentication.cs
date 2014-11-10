@@ -30,17 +30,21 @@ namespace Xamarin.Forms.OAuth
             var adalPage = new AdalPage();
             adalPage.HybridWebView.Navigating += Navigating;
             await _rootPage.Navigation.PushModalAsync(adalPage);
-            var authUrl = string.Format(
+
+            adalPage.HybridWebView.Uri = new Uri(GetAuthUrl());
+
+            await _tcs.Task;
+            return _tcs.Task.Result;
+        }
+
+        protected virtual string GetAuthUrl()
+        {
+            return string.Format(
                 "{0}/oauth2/authorize?response_type=code&resource={1}&client_id={2}&redirect_uri={3}",
                 _authority,
                 _resource,
                 _clientId,
                 _redirectUrl);
-
-            adalPage.HybridWebView.Uri = new Uri(authUrl);
-
-            await _tcs.Task;
-            return _tcs.Task.Result;
         }
 
         private async void Navigating(object sender, string returnUrl)
@@ -62,13 +66,10 @@ namespace Xamarin.Forms.OAuth
         {
             var requestStartTime = DateTime.Now;
             var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, string.Format("{0}/oauth2/token", _authority));
-            var tokenreq = string.Format(
-                "grant_type=authorization_code&code={0}&client_id={1}&redirect_uri={2}",
-                code,
-                _clientId,
-                Uri.EscapeUriString(_redirectUrl));
-            request.Content = new StringContent(tokenreq, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri())
+            {
+                Content = new StringContent(GetTokenRequest(code), Encoding.UTF8, "application/x-www-form-urlencoded")
+            };
 
             var response = await client.SendAsync(request);
             if (!response.IsSuccessStatusCode) return null;
@@ -93,17 +94,30 @@ namespace Xamarin.Forms.OAuth
             };
         }
 
+        protected virtual string GetTokenRequest(string code)
+        {
+            return string.Format(
+                "grant_type=authorization_code&code={0}&client_id={1}&redirect_uri={2}",
+                code,
+                _clientId,
+                Uri.EscapeUriString(_redirectUrl));
+        }
+
+        protected virtual string GetRequestUri()
+        {
+            return string.Format("{0}/oauth2/token", _authority);
+        }
+
         public async Task<AuthToken> RefreshToken(string refreshToken)
         {
             var requestStartTime = DateTime.Now;
             var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, string.Format("{0}/oauth2/token", _authority));
-            var tokenreq = string.Format(
-                "grant_type=refresh_token&client_id={0}&redirect_uri={1}&refresh_token={2}",
-                _clientId,
-                Uri.EscapeUriString(_redirectUrl),
-                refreshToken);
-            request.Content = new StringContent(tokenreq, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri())
+            {
+                Content =
+                    new StringContent(GetTokenRefreshRequest(refreshToken), Encoding.UTF8,
+                        "application/x-www-form-urlencoded")
+            };
 
             var response = await client.SendAsync(request);
             if (!response.IsSuccessStatusCode) return null;
@@ -119,6 +133,16 @@ namespace Xamarin.Forms.OAuth
                 RefreshToken = token.RefreshToken,
                 ExpiresOn = requestStartTime.AddSeconds(token.ExpiresIn)
             };
+        }
+
+        protected virtual string GetTokenRefreshRequest(string refreshToken)
+        {
+            var tokenreq = string.Format(
+                "grant_type=refresh_token&client_id={0}&redirect_uri={1}&refresh_token={2}",
+                _clientId,
+                Uri.EscapeUriString(_redirectUrl),
+                refreshToken);
+            return tokenreq;
         }
     }
 }
