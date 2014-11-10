@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>NuGet.Xamarin.Forms.OAuth</id>
+    <id>Xamarin.Forms.OAuth</id>
     <version>0.0.1-pre</version>
-    <title>NuGet.Xamarin.Forms.OAuth</title>
+    <title>Xamarin.Forms OAuth</title>
     <authors>Artur Shamsutdinov</authors>
     <owners></owners>
     <description>Xamarin.Forms based OAuth lib</description>
