@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NuGet.Xamarin.Forms.OAuth</id>
-    <version>0.0.1</version>
+    <version>0.0.1-pre</version>
     <title>NuGet.Xamarin.Forms.OAuth</title>
     <authors>Artur Shamsutdinov</authors>
     <owners></owners>
@@ -18,10 +18,10 @@
     <copyright>Copyright  2014</copyright>
     <dependencies>
         <group>
-          <dependency id="Xamarin.Forms" />
-          <dependency id="Newtonsoft.Json" />
-          <dependency id="BouncyCastle-PCL" />
-          <dependency id="Microsoft.Net.Http" />
+          <dependency id="Xamarin.Forms" version="1.2.3.6257" />
+          <dependency id="Newtonsoft.Json" version="6.0.6" />
+          <dependency id="BouncyCastle-PCL" version="1.0.0.4" />
+          <dependency id="Microsoft.Net.Http" version="2.2.28" />
         </group>
     </dependencies>
     <references></references>
