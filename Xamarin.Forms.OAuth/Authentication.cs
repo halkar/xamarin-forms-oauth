@@ -137,12 +137,11 @@ namespace Xamarin.Forms.OAuth
 
         protected virtual string GetTokenRefreshRequest(string refreshToken)
         {
-            var tokenreq = string.Format(
+            return string.Format(
                 "grant_type=refresh_token&client_id={0}&redirect_uri={1}&refresh_token={2}",
                 _clientId,
                 Uri.EscapeUriString(_redirectUrl),
                 refreshToken);
-            return tokenreq;
         }
     }
 }
