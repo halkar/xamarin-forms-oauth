@@ -28,12 +28,6 @@
     <tags>xamarin xamarin.forms oauth</tags>
   </metadata>
   <files>
-    <file src="bin\**\Xamarin.Forms.OAuth.dll" target="lib\MonoAndroid10" />
-    <file src="bin\**\Xamarin.Forms.OAuth.PlatformAndroid.dll" target="lib\MonoAndroid10" />
-    <file src="bin\**\Xamarin.Forms.OAuth.dll" target="lib\MonoTouch10" />
-    <file src="bin\**\XamarinFormsOAuthPlatformiOS.dll" target="lib\MonoTouch10" />
-    <file src="bin\**\Xamarin.Forms.OAuth.dll" target="lib\WP80" />
-    <file src="bin\**\Xamarin.Forms.OAuth.PlatformWP.dll" target="lib\WP80" />
-    <file src="bin\**\Xamarin.Forms.OAuth.dll" target="lib\portable-net45+wp80+MonoAndroid10+MonoTouch10" />
+    <file src="bin\lib\**" target="lib" />
   </files>
 </package>
