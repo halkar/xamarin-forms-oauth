@@ -39,6 +39,7 @@
     <Compile Include="AdalPage.cs" />
     <Compile Include="AuthToken.cs" />
     <Compile Include="Controls\HybridWebView.cs" />
+    <Compile Include="Interfaces\IAuthentication.cs" />
     <Compile Include="Interfaces\IRootPageProvider.cs" />
     <Compile Include="Interfaces\ISettingsProvider.cs" />
     <Compile Include="JsonWebToken.cs" />

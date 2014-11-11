@@ -8,7 +8,7 @@ using Xamarin.Forms.OAuth.Interfaces;
 
 namespace Xamarin.Forms.OAuth
 {
-    public class Authentication
+    public class Authentication : IAuthentication
     {
         private readonly IRootPageProvider _rootPageProvider;
         private readonly IUserDialogService _userDialogService;
