@@ -39,6 +39,8 @@
     <Compile Include="AdalPage.cs" />
     <Compile Include="AuthToken.cs" />
     <Compile Include="Controls\HybridWebView.cs" />
+    <Compile Include="Interfaces\IRootPageProvider.cs" />
+    <Compile Include="Interfaces\ISettingsProvider.cs" />
     <Compile Include="JsonWebToken.cs" />
     <Compile Include="JsonWebTokenConvert.cs" />
     <Compile Include="JwtHashAlgorithm.cs" />
@@ -47,6 +49,9 @@
     <Compile Include="SignatureVerificationException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.XamForms.UserDialogs">
+      <HintPath>..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\portable-win+net45+MonoAndroid+MonoTouch+wp8\Acr.XamForms.UserDialogs.dll</HintPath>
+    </Reference>
     <Reference Include="bouncy_castle_hmac_sha_pcl">
       <HintPath>..\packages\BouncyCastle-PCL.1.0.0.4\lib\bouncy_castle_hmac_sha_pcl.dll</HintPath>
     </Reference>
