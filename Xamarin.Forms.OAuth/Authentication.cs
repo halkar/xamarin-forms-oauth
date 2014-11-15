@@ -13,9 +13,10 @@ namespace Xamarin.Forms.OAuth
         private readonly IRootPageProvider _rootPageProvider;
         private readonly IUserDialogService _userDialogService;
         private readonly ISettingsProvider _settingsProvider;
-
         private readonly TaskCompletionSource<AuthToken> _tcs = new TaskCompletionSource<AuthToken>();
         private readonly ProgressConfig _progressConfig;
+       
+        private IProgressDialog _progressDialog;
 
         public Authentication(IRootPageProvider rootPageProvider, IUserDialogService userDialogService, ISettingsProvider settingsProvider)
         {
@@ -33,12 +34,23 @@ namespace Xamarin.Forms.OAuth
         {
             var adalPage = new AdalPage();
             adalPage.HybridWebView.Navigating += Navigating;
+            adalPage.HybridWebView.LoadFinished += LoadFinished;
             await _rootPageProvider.Page.Navigation.PushModalAsync(adalPage);
+
+            _progressDialog = _userDialogService.Progress(_progressConfig);
 
             adalPage.HybridWebView.Uri = new Uri(GetAuthUrl(_settingsProvider));
 
             await _tcs.Task;
             return _tcs.Task.Result;
+        }
+
+        private void LoadFinished(object sender, EventArgs e)
+        {
+            if (_progressDialog == null) 
+                return;
+            _progressDialog.Hide();
+            _progressDialog = null;
         }
 
         protected virtual string GetAuthUrl(ISettingsProvider settingsProvider)
@@ -59,13 +71,13 @@ namespace Xamarin.Forms.OAuth
 
             var code = uri.Query.Remove(0, 6);
 
-            var progressDialog = _userDialogService.Progress(_progressConfig);
+            _progressDialog = _userDialogService.Progress(_progressConfig);
 
             var authToken = await RequestToken(code);
 
             await _rootPageProvider.Page.Navigation.PopModalAsync();
 
-            progressDialog.Hide();
+            _progressDialog.Hide();
 
             _tcs.SetResult(authToken);
         }

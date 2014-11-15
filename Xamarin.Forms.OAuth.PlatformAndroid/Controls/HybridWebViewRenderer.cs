@@ -79,6 +79,11 @@ namespace Xamarin.Forms.OAuth.Controls
                 return true;
             }
 
+            public override void OnPageFinished(Android.Webkit.WebView view, string url)
+            {
+                base.OnPageFinished(view, url);
+            }
+
             public override void OnPageStarted(Android.Webkit.WebView view, string url, Android.Graphics.Bitmap favicon)
             {
                 base.OnPageStarted(view, url, favicon);

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Forms.OAuth.Sample.MainPage"
+             Padding="10,15">
+    <StackLayout
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+        <Grid Padding="0,0,0,5" HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinitionCollection>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </RowDefinitionCollection>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinitionCollection>
+                    <ColumnDefinition>
+                        <ColumnDefinition.Width>
+                            <OnPlatform x:TypeArguments="GridLength"
+                                        iOS="85" Android="85" WinPhone="100" />
+                        </ColumnDefinition.Width>
+                    </ColumnDefinition>
+                    <ColumnDefinition Width="*" />
+                </ColumnDefinitionCollection>
+            </Grid.ColumnDefinitions>
+            <Label Text="Authority" HorizontalOptions="Start" VerticalOptions="Start"
+                   Font="Bold, Medium" Grid.Row="0" Grid.Column="0" />
+            <Label Text="Resource" HorizontalOptions="Start" VerticalOptions="Start"
+                   Font="Bold, Medium" Grid.Row="1" Grid.Column="0" />
+            <Label Text="ClientId" HorizontalOptions="Start" VerticalOptions="Start"
+                   Font="Bold, Medium" Grid.Row="2" Grid.Column="0" />
+            <Label Text="RedirectUrl" HorizontalOptions="Start" VerticalOptions="Center"
+                   Font="Bold, Medium" Grid.Row="3" Grid.Column="0" />
+            <Entry x:Name="AuthorityEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
+                   Text="https://foursquare.com"/>
+            <Entry x:Name="ResourceEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="1" Grid.Column="1" />
+            <Entry x:Name="ClientIdEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="2" Grid.Column="1" 
+                   Text=""/>
+            <Entry x:Name="RedirectUrlEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="3" Grid.Column="1"
+                   Text="http://test.tes"
+                   />
+        </Grid>
+        <Grid ColumnSpacing="50" HorizontalOptions="CenterAndExpand">
+            <Button Text="Submit" Font="Bold, Medium" HorizontalOptions="Center" Clicked="Button_OnClicked">
+                <Button.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double"
+                                iOS="90" Android="90" WinPhone="170" />
+                </Button.WidthRequest>
+            </Button>
+        </Grid>
+    </StackLayout>
+</ContentPage>
