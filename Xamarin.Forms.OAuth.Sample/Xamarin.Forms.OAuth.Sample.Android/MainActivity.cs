@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Acr.XamForms.UserDialogs.Droid;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -20,7 +20,10 @@ namespace Xamarin.Forms.OAuth.Sample.Droid
 
             Xamarin.Forms.Forms.Init(this, bundle);
 
-            SetPage(App.GetMainPage());
+            var mainPage = new MainPage();
+            mainPage.UserDialogService = new UserDialogService();
+
+            SetPage(mainPage);
         }
     }
 }

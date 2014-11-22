@@ -10,15 +10,16 @@ namespace Xamarin.Forms.OAuth
 {
     public class Authentication : IAuthentication
     {
-        private readonly IRootPageProvider _rootPageProvider;
-        private readonly IUserDialogService _userDialogService;
-        private readonly ISettingsProvider _settingsProvider;
-        private readonly TaskCompletionSource<AuthToken> _tcs = new TaskCompletionSource<AuthToken>();
-        private readonly ProgressConfig _progressConfig;
-       
+        private AdalPage _adalPage;
         private IProgressDialog _progressDialog;
+        private readonly ProgressConfig _progressConfig;
+        private readonly IRootPageProvider _rootPageProvider;
+        protected readonly ISettingsProvider _settingsProvider;
+        private readonly TaskCompletionSource<AuthToken> _tcs = new TaskCompletionSource<AuthToken>();
+        private readonly IUserDialogService _userDialogService;
 
-        public Authentication(IRootPageProvider rootPageProvider, IUserDialogService userDialogService, ISettingsProvider settingsProvider)
+        public Authentication(IRootPageProvider rootPageProvider, IUserDialogService userDialogService,
+            ISettingsProvider settingsProvider)
         {
             _rootPageProvider = rootPageProvider;
             _userDialogService = userDialogService;
@@ -32,40 +33,84 @@ namespace Xamarin.Forms.OAuth
 
         public async Task<AuthToken> Authenticate()
         {
-            var adalPage = new AdalPage();
-            adalPage.HybridWebView.Navigating += Navigating;
-            adalPage.HybridWebView.LoadFinished += LoadFinished;
-            await _rootPageProvider.Page.Navigation.PushModalAsync(adalPage);
+            _adalPage = new AdalPage();
+            _adalPage.HybridWebView.Navigating += Navigating;
+            _adalPage.HybridWebView.Navigated += Navigated;
+            await _rootPageProvider.Page.Navigation.PushModalAsync(_adalPage);
 
             _progressDialog = _userDialogService.Progress(_progressConfig);
 
-            adalPage.HybridWebView.Uri = new Uri(GetAuthUrl(_settingsProvider));
+            _adalPage.HybridWebView.Uri = new Uri(GetAuthUrl());
 
             await _tcs.Task;
             return _tcs.Task.Result;
         }
 
-        private void LoadFinished(object sender, EventArgs e)
+        public async Task<AuthToken> RefreshToken(string refreshToken)
         {
-            if (_progressDialog == null) 
+            var requestStartTime = DateTime.Now;
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri(_settingsProvider))
+            {
+                Content = new StringContent(
+                    GetTokenRequest(refreshToken, _settingsProvider),
+                    Encoding.UTF8,
+                    "application/x-www-form-urlencoded")
+            };
+
+            var response = await client.SendAsync(request);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            if (responseContent == null) return null;
+
+            var token = JsonConvert.DeserializeObject<OAuthToken>(responseContent);
+
+            return new AuthToken
+            {
+                AccessToken = token.AccessToken,
+                RefreshToken = token.RefreshToken,
+                ExpiresOn = requestStartTime.AddSeconds(token.ExpiresIn)
+            };
+        }
+
+        private void Navigated(object sender, string e)
+        {
+            if (_progressDialog == null)
                 return;
+            _adalPage.HybridWebView.Navigated -= Navigated;
             _progressDialog.Hide();
             _progressDialog = null;
         }
 
-        protected virtual string GetAuthUrl(ISettingsProvider settingsProvider)
+        protected virtual string GetAuthUrl()
         {
-            return string.Format(
-                "{0}/oauth2/authorize?response_type=code&resource={1}&client_id={2}&redirect_uri={3}",
-                settingsProvider.Authority,
-                settingsProvider.Resource,
-                settingsProvider.ClientId,
-                settingsProvider.RedirectUrl);
+            var url = string.Format(
+                "{0}/oauth2/{1}?response_type=code&client_id={2}&redirect_uri={3}",
+                _settingsProvider.Authority,
+                _settingsProvider.Path,
+                _settingsProvider.ClientId,
+                _settingsProvider.RedirectUrl);
+            if (_settingsProvider.AdditionalParameters != null)
+            {
+                var sb = new StringBuilder(url);
+                foreach (var parameter in _settingsProvider.AdditionalParameters)
+                {
+                    sb.Append("&")
+                        .Append(parameter.Key)
+                        .Append("=")
+                        .Append(parameter.Value);
+                }
+                url = sb.ToString();
+            }
+            return url;
         }
 
         private async void Navigating(object sender, string returnUrl)
         {
             if (!returnUrl.StartsWith(_settingsProvider.RedirectUrl)) return;
+
+            _adalPage.HybridWebView.IsVisible = false;
 
             var uri = new Uri(returnUrl);
 
@@ -100,8 +145,13 @@ namespace Xamarin.Forms.OAuth
             var responseContent = await response.Content.ReadAsStringAsync();
             if (responseContent == null) return null;
 
+            return DeserializeAuthToken(responseContent, requestStartTime);
+        }
+
+        protected virtual AuthToken DeserializeAuthToken(string responseContent, DateTime requestStartTime)
+        {
             var token = JsonConvert.DeserializeObject<OAuthToken>(responseContent);
-            var jwt = JsonWebTokenConvert.Decode(token.IdToken, (byte[])null, false);
+            var jwt = JsonWebTokenConvert.Decode(token.IdToken, (byte[]) null, false);
             var identity = JsonConvert.DeserializeObject<JsonWebToken>(jwt);
 
             return new AuthToken
@@ -120,43 +170,16 @@ namespace Xamarin.Forms.OAuth
         protected virtual string GetRefreshTokenRequest(string code, ISettingsProvider settingsProvider)
         {
             return string.Format(
-                "grant_type=authorization_code&code={0}&client_id={1}&redirect_uri={2}",
+                "grant_type=authorization_code&code={0}&client_id={1}&redirect_uri={2}&client_secret={3}",
                 code,
                 settingsProvider.ClientId,
-                Uri.EscapeUriString(settingsProvider.RedirectUrl));
+                Uri.EscapeUriString(settingsProvider.RedirectUrl),
+                settingsProvider.ClientSecret);
         }
 
         protected virtual string GetRequestUri(ISettingsProvider settingsProvider)
         {
             return string.Format("{0}/oauth2/token", settingsProvider.Authority);
-        }
-
-        public async Task<AuthToken> RefreshToken(string refreshToken)
-        {
-            var requestStartTime = DateTime.Now;
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri(_settingsProvider))
-            {
-                Content = new StringContent(
-                    GetTokenRequest(refreshToken, _settingsProvider),
-                    Encoding.UTF8,
-                    "application/x-www-form-urlencoded")
-            };
-
-            var response = await client.SendAsync(request);
-            if (!response.IsSuccessStatusCode) return null;
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            if (responseContent == null) return null;
-
-            var token = JsonConvert.DeserializeObject<OAuthToken>(responseContent);
-
-            return new AuthToken
-            {
-                AccessToken = token.AccessToken,
-                RefreshToken = token.RefreshToken,
-                ExpiresOn = requestStartTime.AddSeconds(token.ExpiresIn)
-            };
         }
 
         protected virtual string GetTokenRequest(string refreshToken, ISettingsProvider settingsProvider)
@@ -169,4 +192,3 @@ namespace Xamarin.Forms.OAuth
         }
     }
 }
-

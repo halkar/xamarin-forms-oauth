@@ -82,6 +82,11 @@ namespace Xamarin.Forms.OAuth.Controls
             public override void OnPageFinished(Android.Webkit.WebView view, string url)
             {
                 base.OnPageFinished(view, url);
+
+                HybridWebViewRenderer hybrid;
+                if (!this.webHybrid.TryGetTarget(out hybrid))
+                    return;
+                hybrid.Element.OnNavigated(url);
             }
 
             public override void OnPageStarted(Android.Webkit.WebView view, string url, Android.Graphics.Bitmap favicon)

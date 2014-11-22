@@ -134,6 +134,15 @@ namespace Xamarin.Forms.OAuth.Controls
             }
         }
 
+        public void OnNavigated(string url)
+        {
+            var handler = this.Navigated;
+            if (handler != null)
+            {
+                handler(this, url);
+            }
+        }
+
         public void InjectJavaScript(string script)
         {
             lock (this.injectLock)
@@ -195,5 +204,6 @@ namespace Xamarin.Forms.OAuth.Controls
         public EventHandler<string> LoadFromContentRequested;
         public EventHandler<string> LoadContentRequested;
         public EventHandler<string> Navigating;
+        public EventHandler<string> Navigated;
     }
 }

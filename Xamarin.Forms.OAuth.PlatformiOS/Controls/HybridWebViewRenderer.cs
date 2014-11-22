@@ -50,6 +50,7 @@ namespace Xamarin.Forms.OAuth.Controls
         void LoadFinished(object sender, EventArgs e)
         {
             this.Element.OnLoadFinished(sender, e);
+            this.Element.OnNavigating(this.Element.Uri.ToString());
             InjectNativeFunctionScript();
         }
 

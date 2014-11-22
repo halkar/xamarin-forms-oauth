@@ -27,6 +27,7 @@ namespace Xamarin.Forms.OAuth.Controls
                 this.WebView = new WebBrowser { IsScriptEnabled = true };
 
                 this.WebView.Navigating += webView_Navigating;
+                this.WebView.Navigated += WebView_Navigated;
                 this.WebView.LoadCompleted += webView_LoadCompleted;
                 this.WebView.ScriptNotify += WebViewOnScriptNotify;
 
@@ -35,6 +36,11 @@ namespace Xamarin.Forms.OAuth.Controls
 
             this.Unbind(e.OldElement);
             this.Bind();
+        }
+
+        void WebView_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            this.Element.OnNavigated(e.Uri.ToString());
         }
 
         private void WebViewOnScriptNotify(object sender, NotifyEventArgs notifyEventArgs)

@@ -37,16 +37,16 @@
                    Font="Bold, Medium" Grid.Row="3" Grid.Column="0" />
             <Entry x:Name="AuthorityEntry" HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
-                   Text="https://foursquare.com"/>
-            <Entry x:Name="ResourceEntry" HorizontalOptions="FillAndExpand"
-                   VerticalOptions="Center" Grid.Row="1" Grid.Column="1" />
+                   Text="https://accounts.google.com/o" />
+            <Entry x:Name="ClientSecretEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="1" Grid.Column="1"
+                   Text="GlA7JYFFuhA3LDnxrJQWSmk5" />
             <Entry x:Name="ClientIdEntry" HorizontalOptions="FillAndExpand"
-                   VerticalOptions="Center" Grid.Row="2" Grid.Column="1" 
-                   Text=""/>
+                   VerticalOptions="Center" Grid.Row="2" Grid.Column="1"
+                   Text="153503468122-iorcncof354uccr9cc3h1qumpglao8bv.apps.googleusercontent.com" />
             <Entry x:Name="RedirectUrlEntry" HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center" Grid.Row="3" Grid.Column="1"
-                   Text="http://test.tes"
-                   />
+                   Text="http://localhost" />
         </Grid>
         <Grid ColumnSpacing="50" HorizontalOptions="CenterAndExpand">
             <Button Text="Submit" Font="Bold, Medium" HorizontalOptions="Center" Clicked="Button_OnClicked">
