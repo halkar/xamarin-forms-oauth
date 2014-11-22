@@ -5,6 +5,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Acr.XamForms.UserDialogs.WindowsPhone;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -20,7 +21,9 @@ namespace Xamarin.Forms.OAuth.Sample.WinPhone
             InitializeComponent();
 
             Forms.Init();
-            Content = Xamarin.Forms.OAuth.Sample.App.GetMainPage().ConvertPageToUIElement(this);
+            var mainPage = new Xamarin.Forms.OAuth.Sample.MainPage();
+            mainPage.UserDialogService = new UserDialogService();
+            Content = mainPage.ConvertPageToUIElement(this);
         }
     }
 }

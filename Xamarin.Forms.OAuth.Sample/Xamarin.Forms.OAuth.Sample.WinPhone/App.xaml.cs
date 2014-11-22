@@ -128,7 +128,7 @@ namespace Xamarin.Forms.OAuth.Sample.WinPhone
         }
 
         // Do not add any additional code to this method
-        private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
+        private void CompleteInitializePhoneApplication(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             // Set the root visual to allow the application to render
             if (RootVisual != RootFrame)
@@ -138,7 +138,7 @@ namespace Xamarin.Forms.OAuth.Sample.WinPhone
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
         }
 
-        private void CheckForResetNavigation(object sender, NavigationEventArgs e)
+        private void CheckForResetNavigation(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             // If the app has received a 'reset' navigation, then we need to check
             // on the next navigation to see if the page stack should be reset
@@ -146,7 +146,7 @@ namespace Xamarin.Forms.OAuth.Sample.WinPhone
                 RootFrame.Navigated += ClearBackStackAfterReset;
         }
 
-        private void ClearBackStackAfterReset(object sender, NavigationEventArgs e)
+        private void ClearBackStackAfterReset(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             // Unregister the event so it doesn't get called again
             RootFrame.Navigated -= ClearBackStackAfterReset;
