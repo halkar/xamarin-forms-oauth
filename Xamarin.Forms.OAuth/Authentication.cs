@@ -91,18 +91,17 @@ namespace Xamarin.Forms.OAuth
                 _settingsProvider.Path,
                 _settingsProvider.ClientId,
                 _settingsProvider.RedirectUrl);
-            if (_settingsProvider.AdditionalParameters != null)
+            if (_settingsProvider.AdditionalParameters == null)
+                return url;
+            var sb = new StringBuilder(url);
+            foreach (var parameter in _settingsProvider.AdditionalParameters)
             {
-                var sb = new StringBuilder(url);
-                foreach (var parameter in _settingsProvider.AdditionalParameters)
-                {
-                    sb.Append("&")
-                        .Append(parameter.Key)
-                        .Append("=")
-                        .Append(parameter.Value);
-                }
-                url = sb.ToString();
+                sb.Append("&")
+                    .Append(parameter.Key)
+                    .Append("=")
+                    .Append(parameter.Value);
             }
+            url = sb.ToString();
             return url;
         }
 
@@ -111,6 +110,7 @@ namespace Xamarin.Forms.OAuth
             if (!returnUrl.StartsWith(_settingsProvider.RedirectUrl)) return;
 
             _adalPage.HybridWebView.IsVisible = false;
+            _adalPage = null;
 
             var uri = new Uri(returnUrl);
 
