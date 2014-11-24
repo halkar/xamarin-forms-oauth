@@ -6,7 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-
+using Xamarin.Forms.OAuth.Controls;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.Forms.OAuth.Sample.Droid
@@ -17,12 +17,11 @@ namespace Xamarin.Forms.OAuth.Sample.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            Xamarin.Forms.Forms.Init(this, bundle);
-
+            //HACK. Forcing HybridWebViewRenderer to load.
+            var renderer = new HybridWebViewRenderer();
+            Forms.Init(this, bundle);
             var mainPage = new MainPage();
             mainPage.UserDialogService = new UserDialogService();
-
             SetPage(mainPage);
         }
     }

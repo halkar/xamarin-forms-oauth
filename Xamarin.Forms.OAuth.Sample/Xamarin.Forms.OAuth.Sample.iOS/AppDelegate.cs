@@ -1,6 +1,7 @@
 ﻿using Acr.XamForms.UserDialogs.iOS;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Xamarin.Forms.OAuth.Controls;
 
 namespace Xamarin.Forms.OAuth.Sample.iOS
 {
@@ -23,7 +24,8 @@ namespace Xamarin.Forms.OAuth.Sample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Init();
-
+            //HACK. Forcing HybridWebViewRenderer to load.
+            var renderer = new HybridWebViewRenderer();
             var mainPage = new MainPage();
             mainPage.UserDialogService = new UserDialogService(); 
             window = new UIWindow(UIScreen.MainScreen.Bounds)

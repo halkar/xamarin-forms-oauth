@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
 using Xamarin.Forms;
+using Xamarin.Forms.OAuth.Controls;
 
 
 namespace Xamarin.Forms.OAuth.Sample.WinPhone
@@ -21,6 +22,8 @@ namespace Xamarin.Forms.OAuth.Sample.WinPhone
             InitializeComponent();
 
             Forms.Init();
+            //HACK. Forcing HybridWebViewRenderer to load.
+            var renderer = new HybridWebViewRenderer();
             var mainPage = new Xamarin.Forms.OAuth.Sample.MainPage();
             mainPage.UserDialogService = new UserDialogService();
             Content = mainPage.ConvertPageToUIElement(this);
