@@ -151,19 +151,12 @@ namespace Xamarin.Forms.OAuth
         protected virtual AuthToken DeserializeAuthToken(string responseContent, DateTime requestStartTime)
         {
             var token = JsonConvert.DeserializeObject<OAuthToken>(responseContent);
-            var jwt = JsonWebTokenConvert.Decode(token.IdToken, (byte[]) null, false);
-            var identity = JsonConvert.DeserializeObject<JsonWebToken>(jwt);
 
             return new AuthToken
             {
                 AccessToken = token.AccessToken,
                 RefreshToken = token.RefreshToken,
-                Email = identity.Email,
-                ExpiresOn = requestStartTime.AddSeconds(token.ExpiresIn),
-                FamilyName = identity.FamilyName,
-                GivenName = identity.GivenName,
-                UserId = identity.UserId,
-                Username = identity.Username
+                ExpiresOn = requestStartTime.AddSeconds(token.ExpiresIn)
             };
         }
 
