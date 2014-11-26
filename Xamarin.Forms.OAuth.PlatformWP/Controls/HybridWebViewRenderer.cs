@@ -100,5 +100,8 @@ namespace Xamarin.Forms.OAuth.Controls
         {
             this.Element.Uri = new Uri(contentFullName, UriKind.Relative);
         }
+
+        partial void ClearCookie(object sender, string url)
+        {}
     }
 }

@@ -106,5 +106,13 @@ namespace Xamarin.Forms.OAuth.Controls
         {
             this.webView.LoadHtmlString(contentFullName, new NSUrl(NSBundle.MainBundle.BundlePath, true));
         }
+
+        partial void ClearCookie(object sender, string url)
+        {
+            foreach(var cookie in NSHttpCookieStorage.SharedStorage.Cookies)
+            {
+                NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
+            }
+        }
     }
 }

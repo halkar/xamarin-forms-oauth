@@ -53,7 +53,7 @@ namespace Xamarin.Forms.OAuth
             var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri(_settingsProvider))
             {
                 Content = new StringContent(
-                    GetTokenRequest(refreshToken, _settingsProvider),
+                    GetRefreshTokenRequest(refreshToken, _settingsProvider),
                     Encoding.UTF8,
                     "application/x-www-form-urlencoded")
             };
@@ -110,7 +110,6 @@ namespace Xamarin.Forms.OAuth
             if (!returnUrl.StartsWith(_settingsProvider.RedirectUrl)) return;
 
             _adalPage.HybridWebView.IsVisible = false;
-            _adalPage = null;
 
             var uri = new Uri(returnUrl);
 
@@ -134,7 +133,7 @@ namespace Xamarin.Forms.OAuth
             var request = new HttpRequestMessage(HttpMethod.Post, GetRequestUri(_settingsProvider))
             {
                 Content = new StringContent(
-                    GetRefreshTokenRequest(code, _settingsProvider),
+                    GetTokenRequest(code, _settingsProvider),
                     Encoding.UTF8,
                     "application/x-www-form-urlencoded")
             };
@@ -160,7 +159,7 @@ namespace Xamarin.Forms.OAuth
             };
         }
 
-        protected virtual string GetRefreshTokenRequest(string code, ISettingsProvider settingsProvider)
+        protected virtual string GetTokenRequest(string code, ISettingsProvider settingsProvider)
         {
             return string.Format(
                 "grant_type=authorization_code&code={0}&client_id={1}&redirect_uri={2}&client_secret={3}",
@@ -175,13 +174,19 @@ namespace Xamarin.Forms.OAuth
             return string.Format("{0}/oauth2/token", settingsProvider.Authority);
         }
 
-        protected virtual string GetTokenRequest(string refreshToken, ISettingsProvider settingsProvider)
+        protected virtual string GetRefreshTokenRequest(string refreshToken, ISettingsProvider settingsProvider)
         {
             return string.Format(
-                "grant_type=refresh_token&client_id={0}&redirect_uri={1}&refresh_token={2}",
+                "grant_type=refresh_token&client_id={0}&redirect_uri={1}&refresh_token={2}&client_secret={3}",
                 settingsProvider.ClientId,
                 Uri.EscapeUriString(settingsProvider.RedirectUrl),
-                refreshToken);
+                refreshToken,
+                settingsProvider.ClientSecret);
+        }
+
+        public void ClearCookies()
+        {
+            _adalPage.HybridWebView.ClearCookies(null);
         }
     }
 }

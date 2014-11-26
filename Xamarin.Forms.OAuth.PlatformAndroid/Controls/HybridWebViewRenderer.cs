@@ -58,6 +58,11 @@ namespace Xamarin.Forms.OAuth.Controls
             this.InjectNativeFunctionScript();
         }
 
+        partial void ClearCookie(object sender, string url)
+        {
+            CookieManager.Instance.RemoveAllCookie();
+        }
+
         private class Client : WebViewClient
         {
             private readonly WeakReference<HybridWebViewRenderer> webHybrid;

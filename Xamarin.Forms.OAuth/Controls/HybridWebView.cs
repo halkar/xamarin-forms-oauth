@@ -155,6 +155,15 @@ namespace Xamarin.Forms.OAuth.Controls
             }
         }
 
+        public void ClearCookies(string url)
+        {
+           var handler = this.ClearCookieRequested;
+           if (handler != null)
+           {
+               handler(this, url);
+           }
+        }
+
         public void CallJsFunction(string funcName, params object[] parameters)
         {
             var builder = new StringBuilder();
@@ -202,6 +211,7 @@ namespace Xamarin.Forms.OAuth.Controls
 
         public EventHandler<string> JavaScriptLoadRequested;
         public EventHandler<string> LoadFromContentRequested;
+        public EventHandler<string> ClearCookieRequested;
         public EventHandler<string> LoadContentRequested;
         public EventHandler<string> Navigating;
         public EventHandler<string> Navigated;

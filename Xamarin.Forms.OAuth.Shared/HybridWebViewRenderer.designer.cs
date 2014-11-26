@@ -95,6 +95,7 @@ namespace Xamarin.Forms.OAuth.Controls
             this.Element.JavaScriptLoadRequested += OnInjectRequest;
             this.Element.LoadFromContentRequested += LoadFromContent;
             this.Element.LoadContentRequested += LoadContent;
+            this.Element.ClearCookieRequested += ClearCookie;
         }
 
         private void Unbind(HybridWebView oldElement)
@@ -105,6 +106,7 @@ namespace Xamarin.Forms.OAuth.Controls
                 oldElement.JavaScriptLoadRequested -= OnInjectRequest;
                 oldElement.LoadFromContentRequested -= LoadFromContent;
                 oldElement.LoadContentRequested -= LoadContent;
+                this.Element.ClearCookieRequested -= ClearCookie;
             }
         }
 
@@ -120,6 +122,8 @@ namespace Xamarin.Forms.OAuth.Controls
         partial void LoadFromContent(object sender, string contentFullName);
 
         partial void LoadContent(object sender, string contentFullName);
+
+        partial void ClearCookie(object sender, string url);
 
         private bool CheckRequest(string request)
         {

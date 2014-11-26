@@ -14,6 +14,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </RowDefinitionCollection>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -35,6 +37,10 @@
                    Font="Bold, Medium" Grid.Row="2" Grid.Column="0" />
             <Label Text="RedirectUrl" HorizontalOptions="Start" VerticalOptions="Center"
                    Font="Bold, Medium" Grid.Row="3" Grid.Column="0" />
+            <Label Text="Access token" HorizontalOptions="Start" VerticalOptions="Center"
+                   Font="Bold, Medium" Grid.Row="4" Grid.Column="0" />
+            <Label Text="Refresh token" HorizontalOptions="Start" VerticalOptions="Center"
+                   Font="Bold, Medium" Grid.Row="5" Grid.Column="0" />
             <Entry x:Name="AuthorityEntry" HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center" Grid.Row="0" Grid.Column="1"
                    Text="https://accounts.google.com/o" />
@@ -47,9 +53,13 @@
             <Entry x:Name="RedirectUrlEntry" HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center" Grid.Row="3" Grid.Column="1"
                    Text="http://localhost" />
+            <Entry x:Name="AccessTokenEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="4" Grid.Column="1" />
+            <Entry x:Name="RefreshTokenEntry" HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" Grid.Row="5" Grid.Column="1" />
         </Grid>
         <Grid ColumnSpacing="50" HorizontalOptions="CenterAndExpand">
-            <Button Text="Submit" Font="Bold, Medium" HorizontalOptions="Center" Clicked="Button_OnClicked">
+            <Button Text="Submit/Refresh" Font="Bold, Medium" HorizontalOptions="Center" Clicked="Button_OnClicked">
                 <Button.WidthRequest>
                     <OnPlatform x:TypeArguments="x:Double"
                                 iOS="90" Android="90" WinPhone="170" />
