@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F826A521-3E94-41C4-860E-43CCF8D670E6}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -16,14 +14,12 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <AndroidUseLatestPlatformSdk />
     <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
     <JavaMaximumHeapSize />
     <JavaOptions />
-    <AndroidUseLatestPlatformSdk />
     <NuGetPackageImportStamp>f2eeb33b</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,7 +30,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -45,54 +40,41 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Acr.XamForms.UserDialogs, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\Acr.XamForms.UserDialogs.dll</HintPath>
-    </Reference>
-    <Reference Include="Acr.XamForms.UserDialogs.Droid, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\Acr.XamForms.UserDialogs.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="AndHUD, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\AndHUD.dll</HintPath>
-    </Reference>
-    <Reference Include="FormsViewGroup, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\packages\Xamarin.Android.Support.v4.19.1.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Core, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform.Android, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Acr.XamForms.UserDialogs">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\Acr.XamForms.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.XamForms.UserDialogs.Droid">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\Acr.XamForms.UserDialogs.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="AndHUD">
+      <HintPath>..\..\packages\Acr.XamForms.UserDialogs.2.1.2\lib\MonoAndroid\AndHUD.dll</HintPath>
+    </Reference>
+    <Reference Include="FormsViewGroup">
+      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform.Android">
+      <HintPath>..\..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -116,15 +98,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Forms.OAuth.PlatformAndroid\Xamarin.Forms.OAuth.PlatformAndroid.csproj">
-      <Project>{5c2b6d52-1baa-417f-963b-75d4be5279de}</Project>
+      <Project>{5C2B6D52-1BAA-417F-963B-75D4BE5279DE}</Project>
       <Name>Xamarin.Forms.OAuth.PlatformAndroid</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Xamarin.Forms.OAuth\Xamarin.Forms.OAuth.csproj">
-      <Project>{9181b8bf-4c0e-4ff6-adc8-0430580231b4}</Project>
+      <Project>{9181B8BF-4C0E-4FF6-ADC8-0430580231B4}</Project>
       <Name>Xamarin.Forms.OAuth</Name>
     </ProjectReference>
     <ProjectReference Include="..\Xamarin.Forms.OAuth.Sample\Xamarin.Forms.OAuth.Sample.csproj">
       <Name>Xamarin.Forms.OAuth.Sample</Name>
+      <Project>{7B999A1B-5D67-48C2-96C0-422ACFDEB4B6}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

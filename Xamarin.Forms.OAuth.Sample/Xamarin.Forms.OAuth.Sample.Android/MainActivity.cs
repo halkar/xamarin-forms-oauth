@@ -17,9 +17,9 @@ namespace Xamarin.Forms.OAuth.Sample.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Forms.Init(this, bundle);
             //HACK. Forcing HybridWebViewRenderer to load.
             var renderer = new HybridWebViewRenderer();
-            Forms.Init(this, bundle);
             var mainPage = new MainPage();
             mainPage.UserDialogService = new UserDialogService();
             SetPage(mainPage);
