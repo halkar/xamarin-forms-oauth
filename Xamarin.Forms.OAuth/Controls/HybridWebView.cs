@@ -8,6 +8,7 @@ namespace Xamarin.Forms.OAuth.Controls
 {
     /// <summary>
     /// The hybrid web view.
+    /// Implemetation from Xamarin-Forms-Labs.
     /// </summary>
     public class HybridWebView : WebView
     {

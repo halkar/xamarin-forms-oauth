@@ -35,5 +35,16 @@ namespace Xamarin.Forms.OAuth.Sample
                 AccessTokenEntry.Text = _token.AccessToken;
             }
         }
+
+        private async void Reset_OnClicked(object sender, EventArgs e)
+        {
+            if (_oauth == null)
+                return;
+
+            await _oauth.Logout (_token.AccessToken);
+            AccessTokenEntry.Text = string.Empty;
+            RefreshTokenEntry.Text = string.Empty;
+            _token = null;
+        }
     }
 }

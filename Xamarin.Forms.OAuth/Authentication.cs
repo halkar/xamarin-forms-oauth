@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Acr.XamForms.UserDialogs;
 using Newtonsoft.Json;
 using Xamarin.Forms.OAuth.Interfaces;
+using Xamarin.Forms.OAuth.Controls;
 
 namespace Xamarin.Forms.OAuth
 {
@@ -15,7 +16,7 @@ namespace Xamarin.Forms.OAuth
         private readonly ProgressConfig _progressConfig;
         private readonly IRootPageProvider _rootPageProvider;
         protected readonly ISettingsProvider _settingsProvider;
-        private readonly TaskCompletionSource<AuthToken> _tcs = new TaskCompletionSource<AuthToken>();
+        private TaskCompletionSource<AuthToken> _tcs;
         private readonly IUserDialogService _userDialogService;
 
         public Authentication(IRootPageProvider rootPageProvider, IUserDialogService userDialogService,
@@ -33,6 +34,7 @@ namespace Xamarin.Forms.OAuth
 
         public async Task<AuthToken> Authenticate()
         {
+            _tcs = new TaskCompletionSource<AuthToken>();
             _adalPage = new AdalPage();
             _adalPage.HybridWebView.Navigating += Navigating;
             _adalPage.HybridWebView.Navigated += Navigated;
@@ -184,9 +186,25 @@ namespace Xamarin.Forms.OAuth
                 settingsProvider.ClientSecret);
         }
 
-        public void ClearCookies()
+        public async Task Logout(string token)
         {
-            _adalPage.HybridWebView.ClearCookies(null);
+            var client = new HttpClient();
+            //some servers could not support 
+            var result = await client.GetAsync(GetRevokeUri(_settingsProvider, token));
+            if (!result.IsSuccessStatusCode)
+                return;
+
+            if (_adalPage != null) {
+                _adalPage.HybridWebView.ClearCookies (null);
+            } else {
+                var hybridWebView = new HybridWebView ();
+                hybridWebView.ClearCookies (null);
+            }
+        }
+
+        protected virtual string GetRevokeUri(ISettingsProvider settingsProvider, string token)
+        {
+            return string.Format("{0}/oauth2/revoke?token={1}", settingsProvider.Authority, token);
         }
     }
 }
