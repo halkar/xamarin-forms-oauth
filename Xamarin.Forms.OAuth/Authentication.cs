@@ -9,6 +9,9 @@ using Xamarin.Forms.OAuth.Controls;
 
 namespace Xamarin.Forms.OAuth
 {
+    /// <summary>
+    /// Authentication code proudly stolen from Ducas Francis me@duc.as.
+    /// </summary>
     public class Authentication : IAuthentication
     {
         private AdalPage _adalPage;

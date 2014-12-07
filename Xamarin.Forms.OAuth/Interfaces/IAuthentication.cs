@@ -6,5 +6,6 @@ namespace Xamarin.Forms.OAuth.Interfaces
     {
         Task<AuthToken> Authenticate();
         Task<AuthToken> RefreshToken(string refreshToken);
+        Task Logout(string token);
     }
 }
